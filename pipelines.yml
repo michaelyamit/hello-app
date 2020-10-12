@@ -1,0 +1,47 @@
+resources:
+  - name: dbp_repo
+    type: GitRepo
+    configuration:
+      gitProvider: github 
+      path: michaelyamit/demoproject/hello-app
+      branches:
+        include: master
+
+  - name: dbp_image
+    type: Image
+    configuration:
+      registry: amitmichaely.jfrog.io
+      sourceRepository: dockerdemo   
+      imageName: michaelyamit.jfrog.io/artifactory/dockerdemo/hello-app/v1  
+      imageTag: latest
+      autoPull: true
+
+pipelines:
+  - name: pipeline_dbp
+    configuration:
+      nodePool: u18-static
+    steps:
+      - name: docker_build
+        type: DockerBuild
+        configuration:
+          affinityGroup: dbp_group
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: michaelyamit.jfrog.io/artifactory/dockerdemo/hello-app/v1
+          dockerImageTag: ${run_number}
+          inputResources:
+            - name: dbp_repo
+          integrations:
+            - name: amitmichaely.jfrog.io
+
+      - name: docker_push
+        type: DockerPush
+        configuration:
+          affinityGroup: dbp_group
+          targetRepository: docker-local
+          integrations:
+            - name: amitmichaely.jfrog.io
+          inputSteps:
+            - name: docker_build
+          outputResources:
+            - name: dbp_image
