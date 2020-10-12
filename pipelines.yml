@@ -2,17 +2,18 @@ resources:
   - name: dbp_repo
     type: GitRepo
     configuration:
-      gitProvider: github 
-      path: michaelyamit/demoproject/hello-app
+      gitProvider: jfrogPipelinesDockerSample         
+      path: michaelyamit/jfrog-pipelines-docker-sample  
       branches:
         include: master
 
   - name: dbp_image
     type: Image
     configuration:
-      registry: amitmichaely.jfrog.io
-      sourceRepository: dockerdemo   
-      imageName: michaelyamit.jfrog.io/artifactory/dockerdemo/hello-app/v1  
+      registry: ArtifactoryIntegration      
+      sourceRepository: docker_local   # required if registry is Artifactory
+      region: eu-central-1
+      imageName: pipelines.westus.cloudapp.azure.com:8082/docker-local/mydockerbase  # replace with your image path and name
       imageTag: latest
       autoPull: true
 
@@ -27,12 +28,12 @@ pipelines:
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: michaelyamit.jfrog.io/artifactory/dockerdemo/hello-app/v1
+          dockerImageName: pipelines.westus.cloudapp.azure.com:8082/docker-local/mydockerbase  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo
           integrations:
-            - name: amitmichaely.jfrog.io
+            - name: ArtifactoryIntegration   
 
       - name: docker_push
         type: DockerPush
@@ -40,7 +41,7 @@ pipelines:
           affinityGroup: dbp_group
           targetRepository: docker-local
           integrations:
-            - name: amitmichaely.jfrog.io
+            - name: ArtifactoryIntegration   
           inputSteps:
             - name: docker_build
           outputResources:
