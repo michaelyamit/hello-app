@@ -17,17 +17,17 @@ resources:
       imageTag: latest
       autoPull: true
       
-   - name: dbp_repo
-     type: GitRepo
-     configuration:
-       gitProvider: HelloAppIntegration
-       path: michaelyamit/hello-app
-       branches:
-         include: master
-       buildOn:
-         commit:                true
-         pullRequestCreate:     true
-         releaseRequestCreate : true
+  - name: my_source_repo
+    type: GitRepo
+    configuration:
+      gitProvider: HelloAppIntegration
+      path: michaelyamit/hello-app
+      branches:
+        include: master
+      buildOn:
+        commit:                true
+        pullRequestCreate:     true
+        releaseRequestCreate : true
  
 pipelines:
   - name: pipeline_dbp
@@ -59,13 +59,13 @@ pipelines:
           outputResources:
             - name: dbp_image
             
-       - name: pipeline_gitrepo_trigger
-         steps:
-         - name: gitrepo_trigger_step_1
-           type: Bash
-           configuration:
-             inputResources:
-               - name: my_source_repo
-          execution:
-            onExecute:
-               - printenv   
+      - name: pipeline_gitrepo_trigger
+        steps:
+          - name: gitrepo_trigger_step_1
+            type: Bash
+            configuration:
+              inputResources:
+                - name: my_source_repo
+            execution:
+              onExecute:
+                - printenv   
