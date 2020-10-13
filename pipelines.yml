@@ -25,8 +25,9 @@ resources:
       branches:
         include: master
       buildOn:
-        commit:                true
+        commit:                false
         pullRequestCreate:     true
+        releaseRequestCreate : true
  
 pipelines:
   - name: pipeline_dbp
@@ -59,11 +60,13 @@ pipelines:
             - name: dbp_image
             
       - name: pipeline_gitrepo_trigger
-        type: Bash
         steps:
           - name: gitrepo_trigger_step_1
             type: Bash
             configuration:
               inputResources:
                 - name: my_source_repo
+            execution:
+              onExecute:
+                - printenv 
            
