@@ -27,7 +27,6 @@ resources:
       buildOn:
         commit:                true
         pullRequestCreate:     true
-        releaseRequestCreate : true
  
 pipelines:
   - name: pipeline_dbp
@@ -60,6 +59,7 @@ pipelines:
             - name: dbp_image
             
       - name: pipeline_gitrepo_trigger
+        type: Bash
         steps:
           - name: gitrepo_trigger_step_1
             type: Bash
