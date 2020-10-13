@@ -13,7 +13,7 @@ resources:
       registry: ArtifactoryIntegration      
       sourceRepository: docker_local   # required if registry is Artifactory
       region: eu-central-1
-      imageName: github.com/michaelyamit/hello-app:8082/docker-local/hello-app  # replace with your image path and name
+      imageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
       imageTag: latest
       autoPull: true
 
@@ -28,7 +28,7 @@ pipelines:
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: github.com/michaelyamit/hello-app:8082/docker-local/hello-app  # replace with your image path and name
+          dockerImageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo
