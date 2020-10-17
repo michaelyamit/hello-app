@@ -16,6 +16,22 @@ resources:
       imageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
       imageTag: latest
       autoPull: true
+      
+  - name: simplehelmRepo_chart
+    type: GitRepo
+    configuration:
+      gitProvider: HelloAppIntegration
+      path: michaelyamit/hello-app
+      files:
+        include: "simplehelm.*"
+ 
+  - name: simplehelmChart
+    type: HelmChart
+    configuration:
+      sourceArtifactory: ArtifactoryIntegration
+      repository: helm-local
+      chart: simplehelm
+      version: 0.0.0
 
  
 pipelines:
@@ -47,4 +63,13 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: dbp_image
+            
+      - name: publish_helm_chart
+        type: HelmPublish
+        configuration:
+          inputResources:
+            - name: simplehelmRepo_chart
+          outputResources:
+            - name: simplehelmChart
+          chartPath: ./simplehelm
 
