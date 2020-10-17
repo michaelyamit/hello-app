@@ -47,31 +47,30 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: dbp_image
-      - name: helm_publish
-        steps:
-          - name: helm_publish1
-            type: HelmPublish
-            configuration:
-              #inherits from bash
-              helmVersion:       <2 | 3>                               # optional, defaults to 2
-              chartPath:         <path string>
-              flags:             <option string>                       # optional
-              lint:              <true | false>                        # optional, default false
-              lintFlags:         <string>                              # optional
-              autoPublishBuildInfo: <true | false>                     # default false         
+   
+      - name: helm_publish1
+        type: HelmPublish
+        configuration:
+          #inherits from bash
+          helmVersion:       <2 | 3>                               # optional, defaults to 2
+          chartPath:         <path string>
+          flags:             <option string>                       # optional
+          lint:              <true | false>                        # optional, default false
+          lintFlags:         <string>                              # optional
+          autoPublishBuildInfo: <true | false>                     # default false         
  
-              inputResources:
-                - name: HelloAppIntegration
-              outputResources:
-                - name: amitmichaely.jfrog.io/helm-local/hello-app                  
-                - name:         <BuildInfo resource>                     # optional
+          inputResources:
+            - name: HelloAppIntegration
+          outputResources:
+            - name: amitmichaely.jfrog.io/helm-local/hello-app                  
+            - name:         <BuildInfo resource>                     # optional
  
-            execution:
-              onStart:
-                - echo "Preparing for work..."
-              onSuccess:
-                - echo "Job well done!"
-              onFailure:
-                - echo "uh oh, something went wrong"
-              onComplete: #always
-                - echo "Cleaning up some stuff"
+        execution:
+          onStart:
+            - echo "Preparing for work..."
+          onSuccess:
+            - echo "Job well done!"
+          onFailure:
+            - echo "uh oh, something went wrong"
+          onComplete: #always
+            - echo "Cleaning up some stuff"
