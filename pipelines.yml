@@ -48,23 +48,4 @@ pipelines:
           outputResources:
             - name: dbp_image
    
-      - name: helm_publish
-        type: HelmPublish
-        configuration:
-          #inherits from bash
-          chartPath: michaelyamit/hello-app
-         
-          inputResources:
-            - name: HelloAppIntegration
-          outputResources:
-            - name: amitmichaely.jfrog.io/helm-local/hello-app                  
- 
-        execution:
-          onStart:
-            - echo "Preparing for work..."
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
+   
