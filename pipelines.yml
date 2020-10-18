@@ -55,6 +55,15 @@ pipelines:
           outputResources:
             - name: dbp_image
    
+      - name: scan
+        type: XrayScan
+        configuration:
+          #inherits from bash
+          failOnScan: false       
+          inputResources:
+            - name: dbp_build           # required
+              trigger: false
+         
 
       - name: build_info
         type: PublishBuildInfo
@@ -65,14 +74,6 @@ pipelines:
           outputResources:
             - name: dbp_build
             
-      - name: scan
-        type: XrayScan
-        configuration:
-          #inherits from bash
-          failOnScan: false       
-          inputResources:
-            - name: dbp_build           # required
-              trigger: false
-         
+    
  
 
