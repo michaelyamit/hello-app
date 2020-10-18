@@ -16,7 +16,14 @@ resources:
       imageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
       imageTag: latest
       autoPull: true
-
+      
+  - name: dbp_build
+    type: BuildInfo
+    configuration:
+      sourceArtifactory:  ArtifactoryIntegration
+      buildName:  res_<resource_name>_buildName
+      buildNumber: res_<resource_name>_buildNumber
+    
  
 pipelines:
   - name: pipeline_dbp
@@ -56,7 +63,7 @@ pipelines:
           inputSteps:
             - name: docker_push
           outputResources:
-            - name: dbp_image
+            - name: dbp_build
     
  
 
