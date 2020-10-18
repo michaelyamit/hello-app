@@ -90,6 +90,29 @@ pipelines:
           outputResources:
             - name: dbp_image
             
+            
+      - name: publish_helm_chart
+        type: HelmPublish
+        configuration:
+          inputResources:
+            - name: simplehelmRepo_chart
+          outputResources:
+            - name: simplehelmChart
+          chartPath: ./simplehelm     
+          
+      - name: deploy_helm_chart
+        type: HelmDeploy
+        configuration:
+          integrations:
+            - name: KubernetesIntegration
+          inputResources:
+            - name: simplehelmChart
+            - name: simplehelmDockerImage
+          releaseName: simplehelm
+          flags: "--namespace dev"
+          valueFilePaths:
+            - values.yaml           
+            
       - name: build_info
         type: PublishBuildInfo
         configuration:
