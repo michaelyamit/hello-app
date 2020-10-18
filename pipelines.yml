@@ -60,7 +60,7 @@ pipelines:
         configuration:
           #inherits from bash
           failOnScan: false       
-          inputResources:
+          inputSteps:
             - name: docker_build           # required
               trigger: false
          
