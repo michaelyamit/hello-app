@@ -132,7 +132,7 @@ pipelines:
           affinityGroup: buildAndPush
           integrations:
             - name: ArtifactoryIntegration
-          targetRepository: helm-local/simplehelm
+          targetRepository: helm-local
           inputSteps:
             - name: build_image
           outputResources:
