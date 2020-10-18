@@ -111,32 +111,31 @@ pipelines:
   - name: helm_full_flow
     configuration:
       nodePool: u18-static2
-    steps:           
-             
-      - name: build_image
+    steps:                  
+      - name: docker_build
         type: DockerBuild
         configuration:
           affinityGroup: buildAndPush
-          integrations:
-            - name: ArtifactoryIntegration
-          inputResources:
-            - name: simplehelmRepo_docker
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: amitmichaely.jfrog.io/docker-local/hello-app
-          dockerImageTag: $run_number
-          
-      - name: push_image
+          dockerImageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
+          dockerImageTag: ${run_number}
+          inputResources:
+            - name: simplehelmRepo_docker
+          integrations:
+            - name: ArtifactoryIntegration      
+        
+      - name: docker_push
         type: DockerPush
         configuration:
           affinityGroup: buildAndPush
-          integrations:
-            - name: ArtifactoryIntegration
           targetRepository: helm-local
+          integrations:
+            - name: ArtifactoryIntegration   
           inputSteps:
-            - name: build_image
+            - name: docker_build
           outputResources:
-            - name: simplehelmDockerImage    
+            - name: simplehelmDockerImage       
             
       - name: publish_helm_chart
         type: HelmPublish
