@@ -91,7 +91,7 @@ pipelines:
             - name: dbp_image
             
             
-      - name: publish_helm_chart
+      - name: publish_helm_chart2
         type: HelmPublish
         configuration:
           inputResources:
@@ -100,7 +100,7 @@ pipelines:
             - name: simplehelmChart
           chartPath: ./simplehelm     
           
-      - name: deploy_helm_chart
+      - name: deploy_helm_chart2
         type: HelmDeploy
         configuration:
           integrations:
