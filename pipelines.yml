@@ -35,7 +35,7 @@ resources:
   - name: simplehelmChart
     type: HelmChart
     configuration:
-      sourceArtifactory: art
+      sourceArtifactory: ArtifactoryIntegration
       repository: simplecharts
       chart: simplehelm
       version: 0.0.0    
