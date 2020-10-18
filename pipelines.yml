@@ -62,6 +62,8 @@ pipelines:
           #inherits from bash
           inputSteps:
             - name: docker_push
+          outputResources:
+            - name: dbp_build
           
       - name: scan
         type: XrayScan
@@ -71,7 +73,6 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
-          outputResources:
-            - name: dbp_build
+         
  
 
