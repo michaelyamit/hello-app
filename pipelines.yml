@@ -48,8 +48,7 @@ pipelines:
           outputResources:
             - name: dbp_image
    
-      - name: build_info
-        steps:
+
           - name: build_info
             type: PublishBuildInfo
             configuration:
