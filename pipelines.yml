@@ -108,6 +108,11 @@ pipelines:
             - name: dbp_build           # required
               trigger: true
              
+  - name: helm_full_flow
+    configuration:
+      nodePool: u18-static2
+    steps:           
+             
       - name: build_image
         type: DockerBuild
         configuration:
