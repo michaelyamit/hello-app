@@ -69,7 +69,15 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: dbp_image
-            
+         
+      - name: publish_helm_chart
+        type: HelmPublish
+        configuration:
+          inputResources:
+            - name: simplehelmRepo_chart
+          outputResources:
+            - name: simplehelmChart
+          chartPath: ./simplehelm   
       
               
       - name: build_info
@@ -90,14 +98,7 @@ pipelines:
             - name: dbp_build           # required
               trigger: true
               
-      - name: publish_helm_chart
-        type: HelmPublish
-        configuration:
-          inputResources:
-            - name: simplehelmRepo_chart
-          outputResources:
-            - name: simplehelmChart
-          chartPath: ./simplehelm
+     
     
          
          
