@@ -61,7 +61,7 @@ pipelines:
           failOnScan: false       
           inputResources:
             - name: dbp_build           # required
-              trigger: false
+              trigger: true
               
       - name: build_info
         type: PublishBuildInfo
