@@ -46,7 +46,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: HelloAppIntegration
-      path: amitmichaely.jfrog.io/helm-local/simplehelm
+      path: helm-local/simplehelm
       files:
         include: "simplehelm.*"
  
