@@ -6,7 +6,6 @@ resources:
       path: michaelyamit/hello-app  
       branches:
         include: main
-        
   - name: dbp_image
     type: Image
     configuration:
@@ -16,30 +15,12 @@ resources:
       imageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
       imageTag: latest
       autoPull: true
-      
   - name: dbp_build
     type: BuildInfo
     configuration:
       sourceArtifactory:  ArtifactoryIntegration
       buildName:  res_<resource_name>_buildName
       buildNumber: res_<resource_name>_buildNumber
-      
-  - name: simplehelmRepo_chart
-    type: GitRepo
-    configuration:
-      gitProvider: HelloAppIntegration
-      path: michaelyamit/hello-app
-      files:
-        include: "simplehelm.*"
- 
-  - name: simplehelmChart
-    type: HelmChart
-    configuration:
-      sourceArtifactory: ArtifactoryIntegration
-      repository: helm-local
-      chart: simplehelm
-      version: 0.0.0    
-      
 pipelines:
   - name: pipeline_dbp
     configuration:
@@ -57,7 +38,6 @@ pipelines:
             - name: dbp_repo
           integrations:
             - name: ArtifactoryIntegration   
-            
       - name: docker_push
         type: DockerPush
         configuration:
@@ -69,17 +49,6 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: dbp_image
-         
-      - name: publish_helm_chart
-        type: HelmPublish
-        configuration:
-          inputResources:
-            - name: simplehelmRepo_chart
-          outputResources:
-            - name: simplehelmChart
-          chartPath: ./simplehelm   
-      
-              
       - name: build_info
         type: PublishBuildInfo
         configuration:
@@ -88,7 +57,6 @@ pipelines:
             - name: docker_push
           outputResources:
             - name: dbp_build
-          
       - name: scan
         type: XrayScan
         configuration:
@@ -97,11 +65,4 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
-              
-     
-    
          
-         
-         
- 
-
