@@ -61,7 +61,7 @@ pipelines:
           #inherits from bash
           failOnScan: false       
           inputResources:
-            - name: dbp_build           # required
+            - name: docker_build           # required
               trigger: false
          
 
