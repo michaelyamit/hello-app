@@ -73,8 +73,19 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
-          outputResources:
-            - name: dbp_build
+         
+       - name: scan
+        type: XrayScan
+        configuration:
+          #inherits from bash
+          failOnScan: false       
+          inputResources:
+            - name: dbp_image           # required
+              trigger: true
+         
+         
+         
+         
          
  
 
