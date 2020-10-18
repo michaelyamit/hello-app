@@ -6,6 +6,7 @@ resources:
       path: michaelyamit/hello-app  
       branches:
         include: main
+        
   - name: dbp_image
     type: Image
     configuration:
@@ -15,12 +16,14 @@ resources:
       imageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
       imageTag: latest
       autoPull: true
+      
   - name: dbp_build
     type: BuildInfo
     configuration:
       sourceArtifactory:  ArtifactoryIntegration
       buildName:  res_<resource_name>_buildName
       buildNumber: res_<resource_name>_buildNumber
+      
 pipelines:
   - name: pipeline_dbp
     configuration:
@@ -38,6 +41,7 @@ pipelines:
             - name: dbp_repo
           integrations:
             - name: ArtifactoryIntegration   
+            
       - name: docker_push
         type: DockerPush
         configuration:
@@ -49,6 +53,7 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: dbp_image
+            
       - name: scan
         type: XrayScan
         configuration:
@@ -57,6 +62,7 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: false
+              
       - name: build_info
         type: PublishBuildInfo
         configuration:
