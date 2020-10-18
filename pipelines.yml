@@ -6,7 +6,6 @@ resources:
       path: michaelyamit/hello-app  
       branches:
         include: main
-        
   - name: dbp_image
     type: Image
     configuration:
@@ -16,15 +15,12 @@ resources:
       imageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
       imageTag: latest
       autoPull: true
-      
   - name: dbp_build
     type: BuildInfo
     configuration:
       sourceArtifactory:  ArtifactoryIntegration
       buildName:  res_<resource_name>_buildName
       buildNumber: res_<resource_name>_buildNumber
-      
-      
   - name: simplehelmRepo_docker
     type: GitRepo
     configuration:
@@ -32,7 +28,6 @@ resources:
       path: michaelyamit/hello-app
       files:
         include: "Dockerfile|server.js|package.json" 
-        
   - name: simplehelmDockerImage
     type: Image
     configuration:
@@ -41,7 +36,6 @@ resources:
       region: eu-central-1
       imageName: amitmichaely.jfrog.io/docker-local/hello-app
       imageTag: latest
-  
   - name: simplehelmRepo_chart
     type: GitRepo
     configuration:
@@ -49,7 +43,6 @@ resources:
       path: michaelyamit/hello-app
       files:
         include: "simplehelm.*"
- 
   - name: simplehelmChart
     type: HelmChart
     configuration:
@@ -57,9 +50,6 @@ resources:
       repository: helm-local
       chart: simplehelm
       version: 0.0.0
-      
-      
-      
 pipelines:
   - name: pipeline_dbp
     configuration:
@@ -77,7 +67,6 @@ pipelines:
             - name: dbp_repo
           integrations:
             - name: ArtifactoryIntegration   
-            
       - name: docker_push
         type: DockerPush
         configuration:
@@ -89,30 +78,6 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: dbp_image
-            
-            
-      - name: publish_helm_chart2
-        type: HelmPublish
-        configuration:
-          inputResources:
-            - name: simplehelmRepo_chart
-          outputResources:
-            - name: simplehelmChart
-          chartPath: ./simplehelm     
-          
-      - name: deploy_helm_chart2
-        type: HelmDeploy
-        configuration:
-          integrations:
-            - name: KubernetesIntegration
-          inputResources:
-            - name: simplehelmChart
-            - name: simplehelmDockerImage
-          releaseName: simplehelm
-          flags: "--namespace dev"
-          valueFilePaths:
-            - values.yaml           
-            
       - name: build_info
         type: PublishBuildInfo
         configuration:
@@ -121,7 +86,6 @@ pipelines:
             - name: docker_push
           outputResources:
             - name: dbp_build
-            
       - name: scan
         type: XrayScan
         configuration:
@@ -130,7 +94,6 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
-             
   - name: helm_full_flow
     configuration:
       nodePool: u18-static2
@@ -147,7 +110,6 @@ pipelines:
             - name: simplehelmRepo_docker
           integrations:
             - name: ArtifactoryIntegration      
-        
       - name: docker_push
         type: DockerPush
         configuration:
@@ -159,7 +121,6 @@ pipelines:
             - name: docker_build
           outputResources:
             - name: simplehelmDockerImage       
-            
       - name: publish_helm_chart
         type: HelmPublish
         configuration:
@@ -168,7 +129,6 @@ pipelines:
           outputResources:
             - name: simplehelmChart
           chartPath: ./simplehelm     
-          
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
@@ -181,5 +141,3 @@ pipelines:
           flags: "--namespace dev"
           valueFilePaths:
             - values.yaml    
-              
-         
