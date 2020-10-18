@@ -24,6 +24,40 @@ resources:
       buildName:  res_<resource_name>_buildName
       buildNumber: res_<resource_name>_buildNumber
       
+      
+  - name: simplehelmRepo_docker
+    type: GitRepo
+    configuration:
+      gitProvider: HelloAppIntegration
+      path: michaelyamit/hello-app
+      files:
+        include: "Dockerfile|server.js|package.json" 
+        
+  - name: simplehelmDockerImage
+    type: Image
+    configuration:
+      registry: docker-local
+      imageName: amitmichaely.jfrog.io/docker-local/hello-app
+      imageTag: latest
+  
+  - name: simplehelmRepo_chart
+    type: GitRepo
+    configuration:
+      gitProvider: HelloAppIntegration
+      path: amitmichaely.jfrog.io/helm-local/simplehelm
+      files:
+        include: "simplehelm.*"
+ 
+  - name: simplehelmChart
+    type: HelmChart
+    configuration:
+      sourceArtifactory: ArtifactoryIntegration
+      repository: helm-local
+      chart: simplehelm
+      version: 0.0.0
+      
+      
+      
 pipelines:
   - name: pipeline_dbp
     configuration:
@@ -71,4 +105,45 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
+              
+   
+   
+  - name: helm_full_flow
+    configuration:
+      nodePool: u18-static2
+    steps:
+      - name: build_image
+        type: DockerBuild
+        configuration:
+          affinityGroup: buildAndPush
+          integrations:
+            - name: ArtifactoryIntegration
+          inputResources:
+            - name: simplehelmRepo_docker
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: helm-local/simplehelm
+          dockerImageTag: $run_number
+          
+      - name: push_image
+        type: DockerPush
+        configuration:
+          affinityGroup: buildAndPush
+          integrations:
+            - name: ArtifactoryIntegration
+          targetRepository: helm-local/simplehelm
+          inputSteps:
+            - name: build_image
+          outputResources:
+            - name: simplehelmDockerImage    
+            
+      - name: publish_helm_chart
+        type: HelmPublish
+        configuration:
+          inputResources:
+            - name: simplehelmRepo_chart
+          outputResources:
+            - name: simplehelmChart
+          chartPath: ./simplehelm     
+              
          
