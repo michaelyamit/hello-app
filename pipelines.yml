@@ -49,14 +49,14 @@ pipelines:
             - name: dbp_image
    
 
-          - name: build_info
-            type: PublishBuildInfo
-            configuration:
-               #inherits from bash
-            inputSteps:
-              - name: docker_push
-            outputResources:
-              - name: dbp_image
+      - name: build_info
+        type: PublishBuildInfo
+        configuration:
+          #inherits from bash
+          inputSteps:
+            - name: docker_push
+          outputResources:
+            - name: dbp_image
     
  
 
