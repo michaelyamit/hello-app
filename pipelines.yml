@@ -37,6 +37,8 @@ resources:
     type: Image
     configuration:
       registry: ArtifactoryIntegration
+      sourceRepository: docker_local   # required if registry is Artifactory
+      region: eu-central-1
       imageName: amitmichaely.jfrog.io/docker-local/hello-app
       imageTag: latest
   
