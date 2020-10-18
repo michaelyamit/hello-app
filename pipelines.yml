@@ -73,6 +73,8 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
+          outputResources:
+            - name: dbp_build
          
  
 
