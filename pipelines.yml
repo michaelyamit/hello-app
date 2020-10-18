@@ -74,7 +74,7 @@ pipelines:
             - name: dbp_build           # required
               trigger: true
          
-       - name: scan
+       - name: scan2
         type: XrayScan
         configuration:
           #inherits from bash
