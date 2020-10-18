@@ -48,19 +48,19 @@ pipelines:
           outputResources:
             - name: dbp_image
    
-   - name: build_info
-    steps:
       - name: build_info
-        type: PublishBuildInfo
-        configuration:
-          #inherits from bash
-          inputSteps:
-            - name: docker_push
-          outputResources:
-            - name: dbp_image
+        steps:
+          - name: build_info
+            type: PublishBuildInfo
+            configuration:
+               #inherits from bash
+            inputSteps:
+              - name: docker_push
+            outputResources:
+              - name: dbp_image
+    
  
- 
-        execution:
+       execution:
           onStart:
             - echo "Preparing for work..."
           onSuccess:
