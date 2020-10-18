@@ -46,7 +46,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: HelloAppIntegration
-      path: helm-local/simplehelm
+      path: michaelyamit/hello-app
       files:
         include: "simplehelm.*"
  
