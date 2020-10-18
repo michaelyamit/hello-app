@@ -147,5 +147,18 @@ pipelines:
           outputResources:
             - name: simplehelmChart
           chartPath: ./simplehelm     
+          
+      - name: deploy_helm_chart
+        type: HelmDeploy
+        configuration:
+          integrations:
+            - name: KubernetesIntegration
+          inputResources:
+            - name: simplehelmChart
+            - name: simplehelmDockerImage
+          releaseName: simplehelm
+          flags: "--namespace dev"
+          valueFilePaths:
+            - values.yaml    
               
          
