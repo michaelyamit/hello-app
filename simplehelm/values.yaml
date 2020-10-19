@@ -39,7 +39,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBlancer
+  type: ClusterIP
   port: 80
 
 ingress:
