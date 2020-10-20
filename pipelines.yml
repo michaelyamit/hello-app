@@ -111,23 +111,13 @@ pipelines:
       nodePool: u18-static2
     steps:                  
      
-            
-      - name: publish_helm_chart
-        type: HelmPublish
-        configuration:
-          inputResources:
-            - name: simplehelmRepo_chart
-          outputResources:
-            - name: simplehelmChart
-          chartPath: ./simplehelm     
-          
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
           integrations:
             - name: KubernetesIntegration
           inputResources:
-            - name: simplehelmChart
+            - name: simplehelmRepo_chart
             - name: simplehelmDockerImage
           releaseName: simplehelm
           flags: "--namespace dev"
