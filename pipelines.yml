@@ -120,7 +120,7 @@ pipelines:
             - name: simplehelmRepo_docker
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: hello-app/simplehelm
+          dockerImageName: amitmichaely.jfrog.io/docker-local/hello-app
           dockerImageTag: $run_number
  
       - name: push_image
@@ -129,7 +129,7 @@ pipelines:
           affinityGroup: buildAndPush
           integrations:
             - name: ArtifactoryIntegration
-          targetRepository: hello-app/simplehelm
+          targetRepository: docker-local
           inputSteps:
             - name: build_image
           outputResources:
