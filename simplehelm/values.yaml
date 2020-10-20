@@ -8,7 +8,7 @@ image:
   repository: ${res_simplehelmDockerImage_imageName}
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ${res_simplehelmDockerImage_imageTag}
+  tag: 55
   port: 80
 
 
