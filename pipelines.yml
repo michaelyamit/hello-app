@@ -109,7 +109,31 @@ pipelines:
   - name: helm_full_flow
     configuration:
       nodePool: u18-static2
-    steps:                  
+    steps:   
+      - name: build_image
+        type: DockerBuild
+        configuration:
+          affinityGroup: buildAndPush
+          integrations:
+            - name: DockerRegistryIntegration
+          inputResources:
+            - name: simplehelmRepo_docker
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: hello-app/simplehelm
+          dockerImageTag: $run_number
+ 
+      - name: push_image
+        type: DockerPush
+        configuration:
+          affinityGroup: buildAndPush
+          integrations:
+            - name: DockerRegistryIntegration
+          targetRepository: hello-app/simplehelm
+          inputSteps:
+            - name: build_image
+          outputResources:
+            - name: simplehelmDockerImage
      
             
       - name: publish_helm_chart
