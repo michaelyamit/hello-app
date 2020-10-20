@@ -115,7 +115,7 @@ pipelines:
         configuration:
           affinityGroup: buildAndPush
           integrations:
-            - name: DockerRegistryIntegration
+            - name: ArtifactoryIntegration
           inputResources:
             - name: simplehelmRepo_docker
           dockerFileLocation: .
