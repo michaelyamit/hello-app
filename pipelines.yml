@@ -125,9 +125,9 @@ pipelines:
         configuration:
           integrations:
             - name: KubernetesIntegration
-            - name: simplehelmDockerImage
           inputResources:
             - name: simplehelmChart
+            - name: simplehelmDockerImage
           releaseName: simplehelm
           flags: "--namespace dev"
           valueFilePaths:
