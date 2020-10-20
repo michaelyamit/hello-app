@@ -128,7 +128,7 @@ pipelines:
         configuration:
           affinityGroup: buildAndPush
           integrations:
-            - name: DockerRegistryIntegration
+            - name: ArtifactoryIntegration
           targetRepository: hello-app/simplehelm
           inputSteps:
             - name: build_image
