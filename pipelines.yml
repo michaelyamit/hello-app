@@ -122,4 +122,5 @@ pipelines:
           releaseName: simplehelm
           flags: "--namespace dev"
           valueFilePaths:
-            - values.yaml    
+            - values.yaml  
+          chartPath: ./simplehelm
