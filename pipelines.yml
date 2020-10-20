@@ -38,7 +38,7 @@ resources:
       registry: ArtifactoryIntegration
       sourceRepository: docker_local   # required if registry is Artifactory
       region: eu-central-1
-      imageName: docker-local/hello-app
+      imageName: amitmichaely.jfrog.io/docker-local/hello-app:55
       imageTag: latest
       
   - name: simplehelmRepo_chart
