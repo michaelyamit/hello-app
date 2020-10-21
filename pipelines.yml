@@ -107,7 +107,7 @@ pipelines:
               trigger: true
               
               
-  - name: helm_full_flow
+  - name: helm_flow
     configuration:
       nodePool: u18-static2
     steps:         
@@ -127,6 +127,7 @@ pipelines:
             - name: KubernetesIntegration
           inputResources:
             - name: simplehelmChart
+            - name: simplehelmDockerImage
           releaseName: simplehelm
           flags: "--namespace dev"
           valueFilePaths:
