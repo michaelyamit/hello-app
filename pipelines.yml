@@ -59,7 +59,7 @@ resources:
       
       
 pipelines:
-  - name: pipeline_dbpp
+  - name: pipeline_dbp2
     configuration:
       nodePool: u18-static
     steps:
@@ -107,7 +107,7 @@ pipelines:
               trigger: true
               
               
-  - name: helm_flow
+  - name: helm_flow2
     configuration:
       nodePool: u18-static2
     steps:         
