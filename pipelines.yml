@@ -114,6 +114,8 @@ pipelines:
         type: HelmPublish
         configuration:
           helmVersion: 3
+          inputSteps:
+            - name: docker_push
           inputResources:
             - name: dbp_repo
           outputResources:
@@ -134,6 +136,8 @@ pipelines:
           integrations:
             - name: KubernetesIntegration
             - name: GCPIntegration
+          inputSteps:
+            - name: publish_helm_chart
           inputResources:
             - name: simplehelmChart
           releaseName: simplehelm
