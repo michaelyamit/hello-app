@@ -113,8 +113,9 @@ pipelines:
       - name: publish_helm_chart
         type: HelmPublish
         configuration:
+          helmVersion: 3
           inputResources:
-            - name: simplehelmRepo_chart
+            - name: dbp_repo
           outputResources:
             - name: simplehelmChart
           chartPath: ./simplehelm     
@@ -122,6 +123,7 @@ pipelines:
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
+          helmVersion: 3
           integrations:
             - name: KubernetesIntegration
           inputResources:
