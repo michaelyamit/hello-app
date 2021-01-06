@@ -118,7 +118,7 @@ pipelines:
             - echo "Preparing for work..."
           onExecute:
             - gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project snappy-stacker-300816
-            - kubectl --namespace=cluster-1	 set image deployment/webapp-deployment webapp=amitmichaely.jfrog.io/docker-local/hello-app/builds:${run_number} --record
+            - kubectl --namespace=default	 set image deployment/webapp-deployment webapp=amitmichaely.jfrog.io/docker-local/hello-app/builds:${run_number} --record
           onSuccess:
             - echo "Deployment done successfully!"         
               
