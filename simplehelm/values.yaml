@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: amitmichaely.jfrog.io/docker-local/hello-app
+  repository: ${res_simplehelmDockerImage_imageName}
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: '${run_number}'
+  tag: ${res_simplehelmDockerImage_imageTag}
   port: 80
 
 
