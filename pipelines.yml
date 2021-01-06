@@ -130,8 +130,8 @@ pipelines:
         configuration:
           helmVersion: 3
           integrations:
-            - name: KubernetesIntegration
             - name: GCPIntegration
+            - name: KubernetesIntegration
           inputSteps:
             - name: publish_helm_chart
           inputResources:
