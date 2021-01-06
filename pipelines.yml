@@ -149,5 +149,4 @@ pipelines:
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3 
             - helm repo add jfrog https://charts.jfrog.io/
             - helm repo update
-          onExecute:  
             - gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project snappy-stacker-300816
