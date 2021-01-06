@@ -137,7 +137,7 @@ pipelines:
           inputResources:
             - name: simplehelmChart
           releaseName: simplehelm
-          flags: "--namespace dev"
+          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=latest
           valueFilePaths:
             - values.yaml
         execution:
