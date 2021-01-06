@@ -112,7 +112,7 @@ pipelines:
           inputSteps:
             - name: docker_push
           integrations:
-            - name: gcp_prod
+            - name: GCPIntegration
         execution:
           onStart:
             - echo "Preparing for work..."
