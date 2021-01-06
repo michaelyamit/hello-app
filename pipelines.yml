@@ -105,11 +105,7 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
-              
-  - name: helm_flow2
-    configuration:
-      nodePool: u18-static2
-    steps:         
+     
       - name: publish_helm_chart
         type: HelmPublish
         configuration:
