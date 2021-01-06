@@ -105,6 +105,22 @@ pipelines:
           inputResources:
             - name: dbp_build           # required
               trigger: true
+
+      - name: deployment
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: docker_push
+          integrations:
+            - name: gcp_prod
+        execution:
+          onStart:
+            - echo "Preparing for work..."
+          onExecute:
+            - $ gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project snappy-stacker-300816
+            - kubectl --namespace=k8s-cluster-prod set image deployment/webapp-deployment webapp=amitmichaely.jfrog.io/docker-local/hello-app/builds:${run_number} --record
+          onSuccess:
+            - echo "Deployment done successfully!"         
               
               
   - name: helm_flow2
