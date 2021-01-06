@@ -133,6 +133,7 @@ pipelines:
           helmVersion: 3
           integrations:
             - name: KubernetesIntegration
+            - name: GCPIntegration
           inputResources:
             - name: simplehelmChart
           releaseName: simplehelm
