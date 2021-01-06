@@ -142,9 +142,8 @@ pipelines:
             - values.yaml
         execution:
           onStart:
-            - helm repo add center https://repo.chartcenter.io
-            - helm repo update
             - export HELM_VERSION="3.4.1"
+            - helm repo update
             - curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz"
             - tar -xzf "helm-v$HELM_VERSION-linux-amd64.tar.gz"
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm
