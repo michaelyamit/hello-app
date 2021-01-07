@@ -115,7 +115,7 @@ pipelines:
           inputResources:
             - name: dbp_repo
           outputResources:
-            - name: vfroghelmchart
+            - name: vfrog_helm_chart
           chartPath: vfroghelmchart
         execution:
           onStart:
@@ -141,7 +141,7 @@ pipelines:
           inputSteps:
             - name: publish_helm_chart
           inputResources:
-            - name: vfroghelmchart
+            - name: vfrog_helm_chart
           
         execution:
           onStart:
