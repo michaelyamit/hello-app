@@ -128,6 +128,14 @@ pipelines:
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
+        runtime:
+        type: image
+        image:
+          auto:
+            language: node
+            versions:
+              - 10.18.0
+
           helmVersion: 3
           flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=latest
           valueFilePaths:
