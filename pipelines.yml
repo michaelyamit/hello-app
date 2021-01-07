@@ -151,4 +151,4 @@ pipelines:
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3 
             - gcloud app update
-            #- gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-project
+            - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-project
