@@ -49,13 +49,13 @@ resources:
       files:
         include: "simplehelm.*"
         
-  - name: simplehelmChart
+  - name: vfrog_helm_chart
     type: HelmChart
     configuration:
       sourceArtifactory: ArtifactoryIntegration
       repository: helm-local
-      chart: simplehelm
-      version: 0.1.0
+      chart: vfroghelmchart
+      version: ${run_number}
       
       
 pipelines:
@@ -115,8 +115,8 @@ pipelines:
           inputResources:
             - name: dbp_repo
           outputResources:
-            - name: simplehelmChart
-          chartPath: ./simplehelm 
+            - name: vfroghelmchart
+          chartPath: vfroghelmchart
         execution:
           onStart:
             - export HELM_VERSION="3.4.1"
@@ -132,8 +132,8 @@ pipelines:
           flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=latest
           valueFilePaths:
             - values.yaml
-          releaseName: simplehelm
-          chartPath: ./simplehelm
+          releaseName: vfroghelmchart
+          chartPath: vfroghelmchart
           
           integrations:
             - name: GCPIntegration
@@ -141,7 +141,7 @@ pipelines:
           inputSteps:
             - name: publish_helm_chart
           inputResources:
-            - name: simplehelmChart
+            - name: vfroghelmchart
           
         execution:
           onStart:
