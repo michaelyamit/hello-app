@@ -142,6 +142,7 @@ pipelines:
             - name: publish_helm_chart
           inputResources:
             - name: vfrog_helm_chart
+            - nmae: dbp_image
           
         execution:
           onStart:
