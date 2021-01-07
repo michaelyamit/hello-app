@@ -129,7 +129,7 @@ pipelines:
         type: HelmDeploy
         configuration:
           helmVersion: 3
-          flags: --namespace dev ß--set image.repository=${res_simplehelmDockerImage_imageName} --set image.tag=${run_number}
+          flags: --namespace dev --set image.repository=${res_simplehelmDockerImage_imageName} --set image.tag=${run_number}
           valueFilePaths:
             - values.yaml
           releaseName: vfroghelmchart
