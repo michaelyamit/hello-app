@@ -134,10 +134,9 @@ pipelines:
             - values.yaml
           releaseName: simplehelm
           chartPath: ./simplehelm
-          
+
           integrations:
             - name: GCPIntegration
-            - name: KubernetesIntegration
           inputSteps:
             - name: publish_helm_chart
           inputResources:
