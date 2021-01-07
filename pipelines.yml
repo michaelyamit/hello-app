@@ -129,6 +129,12 @@ pipelines:
         type: HelmDeploy
         configuration:
           helmVersion: 3
+          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=latest
+          valueFilePaths:
+            - values.yaml
+          releaseName: simplehelm
+          chartPath: ./simplehelm
+          
           integrations:
             - name: GCPIntegration
             - name: KubernetesIntegration
@@ -136,10 +142,7 @@ pipelines:
             - name: publish_helm_chart
           inputResources:
             - name: simplehelmChart
-          releaseName: simplehelm
-          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=latest
-          valueFilePaths:
-            - values.yaml
+          
         execution:
           onStart:
             - export HELM_VERSION="3.4.1"
