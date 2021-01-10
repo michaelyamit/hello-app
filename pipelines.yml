@@ -137,8 +137,8 @@ pipelines:
           integrations:
             - name: GCPIntegration
             - name: KubernetesIntegration
-          inputSteps:
-            - name: publish_helm_chart
+          #inputSteps:
+           # - name: publish_helm_chart
           inputResources:
             - name: vfrog_helm_chart
           
