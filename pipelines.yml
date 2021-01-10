@@ -132,7 +132,7 @@ pipelines:
         configuration:
           helmVersion: 3
           releaseName: vfrog
-          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
+          flags: --namespace dev --set image.repository=hello-app --set image.tag=${run_number}
 
           integrations:
             - name: GCPIntegration
