@@ -110,13 +110,14 @@ pipelines:
         type: HelmPublish
         configuration:
           helmVersion: 3
+          chartPath: vfroghelmchart
           inputSteps:
             - name: docker_push
           inputResources:
             - name: dbp_repo
           outputResources:
             - name: vfrog_helm_chart
-          chartPath: vfroghelmchart
+          
         execution:
           onStart:
             - export HELM_VERSION="3.4.1"
@@ -131,7 +132,7 @@ pipelines:
           helmVersion: 3
           valueFilePaths:
             - values.yaml
-          releaseName: vfroghelmchart
+          releaseName: vfrog
           
           integrations:
             - name: GCPIntegration
