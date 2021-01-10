@@ -146,6 +146,7 @@ pipelines:
           
         execution:
           onStart:
+            - docker login amitmichaely.jfrog.io          
             - export HELM_VERSION="3.4.1"
             - curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz"
             - tar -xzf "helm-v$HELM_VERSION-linux-amd64.tar.gz"
@@ -153,4 +154,3 @@ pipelines:
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3 
             - gcloud app update
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-project
-            - docker login amitmichaely.jfrog.io
