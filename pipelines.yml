@@ -142,7 +142,6 @@ pipelines:
           flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}          
           inputResources:
             - name: vfrog_helm_chart
-            - name: dbp_image
           
         execution:
           onStart:
