@@ -111,7 +111,6 @@ pipelines:
         configuration:
           helmVersion: 3
           chartPath: vfroghelmchart
-          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
           
           inputSteps:
             - name: docker_push
