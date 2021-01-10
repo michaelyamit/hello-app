@@ -132,7 +132,7 @@ pipelines:
         configuration:
           helmVersion: 3
           releaseName: vfrog
-          flags: --namespace dev --debug --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
+          flags: --namespace dev #--debug --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
 
           integrations:
             - name: GCPIntegration
@@ -141,6 +141,7 @@ pipelines:
             - name: publish_helm_chart
           inputResources:
             - name: vfrog_helm_chart
+            - name: dbp_image
           
         execution:
           onStart:
