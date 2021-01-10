@@ -7,5 +7,5 @@
 #ENV PORT 8080
 #CMD ["./hello-app"]
 FROM kyma/docker-nginx
-COPY html/ /var/www
+#COPY html/ /var/www
 CMD 'nginx'
