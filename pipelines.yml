@@ -47,7 +47,7 @@ resources:
       gitProvider: HelloAppIntegration
       path: michaelyamit/hello-app
       files:
-        include: "simplehelm.*"
+        include: "vfroghelmchart.*"
         
   - name: vfrog_helm_chart
     type: HelmChart
@@ -129,17 +129,16 @@ pipelines:
         type: HelmDeploy
         configuration:
           helmVersion: 3
-          flags: --namespace dev --set image.repository=${res_simplehelmDockerImage_imageName} --set image.tag=${run_number}
           valueFilePaths:
             - values.yaml
           releaseName: vfroghelmchart
-          chartPath: vfroghelmchart
           
           integrations:
             - name: GCPIntegration
             - name: KubernetesIntegration
           inputSteps:
             - name: publish_helm_chart
+          flags: --namespace dev --set image.repository=${res_simplehelmDockerImage_imageName} --set image.tag=${run_number}          
           inputResources:
             - name: vfrog_helm_chart
             - name: dbp_image
