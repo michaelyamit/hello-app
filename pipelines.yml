@@ -139,7 +139,7 @@ pipelines:
             - name: KubernetesIntegration
           inputSteps:
             - name: publish_helm_chart
-          flags: --namespace dev --set image.repository=hello-app --set image.tag=${run_number}          
+          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}          
           inputResources:
             - name: vfrog_helm_chart
             - name: dbp_image
