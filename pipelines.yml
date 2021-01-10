@@ -111,6 +111,8 @@ pipelines:
         configuration:
           helmVersion: 3
           chartPath: vfroghelmchart
+          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
+          
           inputSteps:
             - name: docker_push
           inputResources:
@@ -130,16 +132,14 @@ pipelines:
         type: HelmDeploy
         configuration:
           helmVersion: 3
-          valueFilePaths:
-            - values.yaml
           releaseName: vfrog
-          
+          flags: --namespace dev --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
+
           integrations:
             - name: GCPIntegration
             - name: KubernetesIntegration
           inputSteps:
             - name: publish_helm_chart
-          flags: --namespace dev #--set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}          
           inputResources:
             - name: vfrog_helm_chart
           
