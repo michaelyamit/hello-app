@@ -136,7 +136,6 @@ pipelines:
           integrations:
             - name: GCPIntegration
             - name: KubernetesIntegration
-            - name: ArtifactoryIntegration 
           inputSteps:
             - name: publish_helm_chart
           flags: --namespace dev --set image.repository=hello-app --set image.tag=${run_number}          
@@ -153,3 +152,4 @@ pipelines:
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3 
             - gcloud app update
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-project
+            - docker login amitmichaely.jfrog.io
