@@ -152,5 +152,5 @@ pipelines:
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3 
             - gcloud app update
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-project
-          #onSuccess:  
-           # - kubectl -n dev expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
+          onSuccess:  
+            - kubectl -n dev expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
