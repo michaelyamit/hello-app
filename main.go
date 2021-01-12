@@ -45,8 +45,11 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Serving request: %s", r.URL.Path)
 	host, _ := os.Hostname()
 	fmt.Fprintf(w, "Production Engineer Assignment!!\n")
-	fmt.Fprintf(w, "Version: 2.0.0\n")
+	fmt.Fprintf(w, "Version: 4.0.0\n")
 	fmt.Fprintf(w, "Hostname: %s\n", host)
+	<div data-v-4b268000="" class="iconrepo-docker iconrepo package-icon"></div>
 }
+
+
 
 // [END container_hello_app]
