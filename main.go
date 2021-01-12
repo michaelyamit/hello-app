@@ -46,6 +46,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	host, _ := os.Hostname()
 	fmt.Fprintf(w, "Production Engineer Assignment!! - needs to add Certificates\n")
 	fmt.Fprintf(w, "Version: 2.0.0\n")
+	fmt.Fprintf(w, "Lior Ben Yehuda\n")
 	fmt.Fprintf(w, "Hostname: %s\n", host)
 }
 
