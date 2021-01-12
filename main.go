@@ -47,7 +47,6 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Production Engineer Assignment!!\n")
 	fmt.Fprintf(w, "Version: 4.0.0\n")
 	fmt.Fprintf(w, "Hostname: %s\n", host)
-	<div data-v-4b268000="" class="iconrepo-docker iconrepo package-icon"></div>
 }
 
 
