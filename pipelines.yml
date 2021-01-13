@@ -161,6 +161,8 @@ pipelines:
         configuration:
           integrations:
             - name: vfrogGmailIntegration       # replace with friendly name of your SMTP Credentials integration
+          inputSteps:
+            - name: deploy_helm_chart  
         execution:
           onSuccess:
             - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
