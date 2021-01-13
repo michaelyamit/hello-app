@@ -167,4 +167,4 @@ pipelines:
               onFailure:
                 - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Failed" --body "FAILED: docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
               onComplete:
-            - # can use send_notification command here
+                - # can use send_notification command here
