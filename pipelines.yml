@@ -95,25 +95,25 @@ pipelines:
           outputResources:
             - name: dbp_image
             
-      #- name: build_info2
-       # type: PublishBuildInfo
-        #configuration:
+      - name: build_info2
+        type: PublishBuildInfo
+        configuration:
           #inherits from bash
-         # priority: 10
-          #inputSteps:
-           # - name: docker_push
-          #outputResources:
-           # - name: dbp_build
+          priority: 10
+          inputSteps:
+            - name: docker_push
+          outputResources:
+            - name: dbp_build
             
-      #- name: scan2
-       # type: XrayScan
-        #configuration:
+      - name: scan2
+        type: XrayScan
+        configuration:
           #inherits from bash
-         # priority: 11
-          #failOnScan: true       
-          #inputResources:
-           # - name: dbp_build           # required
-            #  trigger: false
+          priority: 11
+          failOnScan: true       
+          inputResources:
+            - name: dbp_build           # required
+              trigger: false
      
       - name: publish_helm_chart
         type: HelmPublish
@@ -141,6 +141,7 @@ pipelines:
       - name: helm_build_info
         type: PublishBuildInfo
         configuration:
+          #inherits from bash
           #priority: 10
           inputSteps:
             - name: publish_helm_chart
