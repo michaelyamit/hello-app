@@ -23,6 +23,13 @@ resources:
       sourceArtifactory:  ArtifactoryIntegration
       buildName:  res_<resource_name>_buildName
       buildNumber: res_<resource_name>_buildNumber
+
+  - name: dbp_build_helm
+    type: BuildInfo
+    configuration:
+      sourceArtifactory:  ArtifactoryIntegration
+      buildName:  res_<resource_name>_buildName
+      buildNumber: res_<resource_name>_buildNumber    
       
   - name: simplehelmRepo_docker
     type: GitRepo
@@ -106,7 +113,7 @@ pipelines:
           failOnScan: true       
           inputResources:
             - name: dbp_build           # required
-              trigger: true
+              trigger: false
      
       - name: publish_helm_chart
         type: HelmPublish
@@ -128,7 +135,29 @@ pipelines:
             - curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz"
             - tar -xzf "helm-v$HELM_VERSION-linux-amd64.tar.gz"
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm
-            - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3      
+            - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3
+            
+            
+      - name: helm_build_info
+        type: PublishBuildInfo
+        configuration:
+          #priority: 10
+          inputSteps:
+            - name: publish_helm_chart
+          outputResources:
+            - name: dbp_build_helm
+
+
+      - name: scan
+        type: XrayScan
+        configuration:
+          #inherits from bash
+          #priority: 11
+          failOnScan: true       
+          inputResources:
+            - name: dbp_build_helm           # required
+              trigger: false      
+
       
       - name: deploy_helm_chart
         type: HelmDeploy
