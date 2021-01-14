@@ -149,7 +149,7 @@ pipelines:
             - gcloud app update
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-projects
           onSuccess:  
-            - kubectl -n stg expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
+            - kubectl -n stg expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service-stg --type=LoadBalancer --port 80 --target-port 8080
           
 
     
