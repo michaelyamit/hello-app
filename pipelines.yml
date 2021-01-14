@@ -116,9 +116,7 @@ pipelines:
           chartPath: vfroghelmchart
           
           inputSteps:
-            - name: 
-            
-            _stg
+            - name:docker_push
           inputResources:
             - name: dbp_repo_stg
           outputResources:
