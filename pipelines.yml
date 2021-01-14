@@ -64,7 +64,7 @@ pipelines:
       nodePool: u18-static
     steps:
       - name: docker_build_stg
-        type: DockerBuild_stg
+        type: DockerBuild
         configuration:
           affinityGroup: dbp_group
           dockerFileLocation: .
@@ -77,7 +77,7 @@ pipelines:
             - name: ArtifactoryIntegration 
             
       - name: docker_push_stg
-        type: DockerPush_stg
+        type: DockerPush
         configuration:
           affinityGroup: dbp_group
           targetRepository: docker-local-stg
@@ -116,7 +116,9 @@ pipelines:
           chartPath: vfroghelmchart
           
           inputSteps:
-            - name: docker_push_stg
+            - name: 
+            
+            _stg
           inputResources:
             - name: dbp_repo_stg
           outputResources:
