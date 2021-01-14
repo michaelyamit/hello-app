@@ -92,6 +92,7 @@ pipelines:
         type: PublishBuildInfo
         configuration:
           #inherits from bash
+          priority: 10
           inputSteps:
             - name: docker_push
           outputResources:
@@ -101,6 +102,7 @@ pipelines:
         type: XrayScan
         configuration:
           #inherits from bash
+          priority: 11
           failOnScan: false       
           inputResources:
             - name: dbp_build           # required
@@ -109,6 +111,7 @@ pipelines:
       - name: publish_helm_chart
         type: HelmPublish
         configuration:
+          priority: 100
           helmVersion: 3
           chartPath: vfroghelmchart
           
@@ -130,6 +133,7 @@ pipelines:
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
+          priority: 101
           helmVersion: 3
           releaseName: vfrog
           flags: --namespace dev --debug --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
