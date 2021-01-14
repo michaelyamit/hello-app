@@ -103,7 +103,7 @@ pipelines:
         configuration:
           #inherits from bash
           priority: 11
-          failOnScan: false       
+          failOnScan: true       
           inputResources:
             - name: dbp_build           # required
               trigger: true
