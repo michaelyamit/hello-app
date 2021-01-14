@@ -95,7 +95,7 @@ pipelines:
           outputResources:
             - name: dbp_image
             
-      - name: build_info
+      - name: build_info2
         type: PublishBuildInfo
         configuration:
           #inherits from bash
