@@ -154,6 +154,7 @@ pipelines:
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-projects
           onSuccess:  
             - kubectl -n dev expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
+          onComplete:  
             - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image"
       
 

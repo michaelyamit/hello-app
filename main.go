@@ -45,7 +45,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Serving request: %s", r.URL.Path)
 	host, _ := os.Hostname()
 	fmt.Fprintf(w, "Production Engineer Assignment!!\n")
-	fmt.Fprintf(w, "Version: 1.1.5\n")
+	fmt.Fprintf(w, "Version: 1.1.6\n")
 	fmt.Fprintf(w, "Hostname: %s\n", host)
 }
 
