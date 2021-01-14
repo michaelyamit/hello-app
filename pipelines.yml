@@ -1,5 +1,5 @@
 resources:
-  - name: dbp_repo
+  - name: dbp_repo_stg
     type: GitRepo
     configuration:
       gitProvider: HelloAppIntegration         
@@ -7,7 +7,7 @@ resources:
       branches:
         include: main
         
-  - name: dbp_image
+  - name: dbp_image_stg
     type: Image
     configuration:
       registry: ArtifactoryIntegration      
@@ -17,14 +17,14 @@ resources:
       imageTag: latest
       autoPull: true
       
-  - name: dbp_build
+  - name: dbp_build_stg
     type: BuildInfo
     configuration:
       sourceArtifactory:  ArtifactoryIntegration
       buildName:  res_<resource_name>_buildName
       buildNumber: res_<resource_name>_buildNumber
       
-  - name: simplehelmRepo_docker
+  - name: simplehelmRepo_docker_stg
     type: GitRepo
     configuration:
       gitProvider: HelloAppIntegration
@@ -32,16 +32,16 @@ resources:
       files:
         include: "Dockerfile|server.js|package.json" 
         
-  - name: simplehelmDockerImage
+  - name: simplehelmDockerImage_stg
     type: Image
     configuration:
       registry: ArtifactoryIntegration
       sourceRepository: docker_local   # required if registry is Artifactory
       region: eu-central-1
-      imageName: amitmichaely.jfrog.io/docker-local/hello-app
+      imageName: amitmichaely.jfrog.io/docker-local-stg/hello-app
       imageTag: latest
       
-  - name: simplehelmRepo_chart
+  - name: simplehelmRepo_chart_stg
     type: GitRepo
     configuration:
       gitProvider: HelloAppIntegration
@@ -49,7 +49,7 @@ resources:
       files:
         include: "vfroghelmchart.*"
         
-  - name: vfrog_helm_chart
+  - name: vfrog_helm_chart_stg
     type: HelmChart
     configuration:
       sourceArtifactory: ArtifactoryIntegration
@@ -63,8 +63,8 @@ pipelines:
     configuration:
       nodePool: u18-static
     steps:
-      - name: docker_build
-        type: DockerBuild
+      - name: docker_build_stg
+        type: DockerBuild_stg
         configuration:
           affinityGroup: dbp_group
           dockerFileLocation: .
@@ -72,43 +72,43 @@ pipelines:
           dockerImageName: amitmichaely.jfrog.io/docker-local/hello-app  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
-            - name: dbp_repo
+            - name: dbp_repo_stg
           integrations:
             - name: ArtifactoryIntegration 
             
-      - name: docker_push
-        type: DockerPush
+      - name: docker_push_stg
+        type: DockerPush_stg
         configuration:
           affinityGroup: dbp_group
-          targetRepository: docker-local
+          targetRepository: docker-local-stg
           integrations:
             - name: ArtifactoryIntegration   
           inputSteps:
-            - name: docker_build
+            - name: docker_build_stg
           outputResources:
-            - name: dbp_image
+            - name: dbp_image_stg
             
-      - name: build_info
+      - name: build_info_stg
         type: PublishBuildInfo
         configuration:
           #inherits from bash
           priority: 10
           inputSteps:
-            - name: docker_push
+            - name: docker_push_stg
           outputResources:
-            - name: dbp_build
+            - name: dbp_build_stg
             
-      - name: scan
+      - name: scan_stg
         type: XrayScan
         configuration:
           #inherits from bash
           priority: 11
           failOnScan: false       
           inputResources:
-            - name: dbp_build           # required
+            - name: dbp_build_stg           # required
               trigger: true
      
-      - name: publish_helm_chart
+      - name: publish_helm_chart_stg
         type: HelmPublish
         configuration:
           priority: 100
@@ -116,11 +116,11 @@ pipelines:
           chartPath: vfroghelmchart
           
           inputSteps:
-            - name: docker_push
+            - name: docker_push_stg
           inputResources:
-            - name: dbp_repo
+            - name: dbp_repo_stg
           outputResources:
-            - name: vfrog_helm_chart
+            - name: vfrog_helm_chart_stg
           
         execution:
           onStart:
@@ -130,13 +130,13 @@ pipelines:
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm
             - ln -sf "$PWD/linux-amd64/helm" /usr/local/bin/helm3      
       
-      - name: deploy_helm_chart
+      - name: deploy_helm_chart_stg
         type: HelmDeploy
         configuration:
           priority: 101
           helmVersion: 3
           releaseName: vfrog
-          flags: --namespace dev --debug --set image.repository=amitmichaely.jfrog.io/docker-local/hello-app --set image.tag=${run_number}
+          flags: --namespace stg --debug --set image.repository=amitmichaely.jfrog.io/docker-local-stg/hello-app --set image.tag=${run_number}
 
           integrations:
             - name: GCPIntegration
@@ -144,8 +144,8 @@ pipelines:
           #inputSteps:
            # - name: publish_helm_chart
           inputResources:
-            - name: vfrog_helm_chart
-           # - name: dbp_image
+            - name: vfrog_helm_chart_stg
+           # - name: dbp_image_stg
           
         execution:
           onStart:
@@ -157,9 +157,7 @@ pipelines:
             - gcloud app update
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-projects
           onSuccess:  
-            - kubectl -n dev expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
-          onComplete:  
-            - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image"
-      
+            - kubectl -n stg expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
+          
 
     
