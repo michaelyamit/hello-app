@@ -101,6 +101,7 @@ pipelines:
         type: XrayScan
         configuration:
           #inherits from bash
+          priority: 10
           failOnScan: false       
           inputResources:
             - name: dbp_build           # required
@@ -109,6 +110,7 @@ pipelines:
       - name: publish_helm_chart
         type: HelmPublish
         configuration:
+          priority: 100
           helmVersion: 3
           chartPath: vfroghelmchart
           
