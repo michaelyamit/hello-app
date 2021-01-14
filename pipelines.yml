@@ -59,7 +59,7 @@ resources:
       
       
 pipelines:
-  - name: pipeline_dbp2
+  - name: pipeline_dbp
     configuration:
       nodePool: u18-static
     steps:
