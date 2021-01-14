@@ -165,7 +165,8 @@ pipelines:
             - name: deploy_helm_chart  
         execution:
           onSuccess:
-            - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
+            - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image"
+            #- send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
           #onFailure:
            # - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Failed" --body "FAILED: docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
           #onComplete:
