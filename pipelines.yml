@@ -154,18 +154,19 @@ pipelines:
             - gcloud container clusters get-credentials vfrog --zone europe-west1-c --project vfrog-projects
           onSuccess:  
             - kubectl -n dev expose deployment vfrog-vfroghelmchart --name=vfrog-vfroghelmchart-service --type=LoadBalancer --port 80 --target-port 8080
+            - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image"
       
 
-      - name: test_step_1
-        type: Bash
-        configuration:
-          integrations:
-            - name: vfrogGmailIntegration       # replace with friendly name of your SMTP Credentials integration
-          inputSteps:
-            - name: deploy_helm_chart  
-        execution:
-          onSuccess:
-            - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image"
+     # - name: test_step_1
+      #  type: Bash
+       # configuration:
+        #  integrations:
+         #   - name: vfrogGmailIntegration       # replace with friendly name of your SMTP Credentials integration
+          #inputSteps:
+           # - name: deploy_helm_chart  
+        #execution:
+         # onSuccess:
+          #  - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image"
             #- send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Succeeded" --body "built docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
           #onFailure:
            # - send_notification notifySMTP --recipients "vfrogproject@gmail.com" --subject "Build Failed" --body "FAILED: docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
