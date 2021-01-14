@@ -53,7 +53,7 @@ resources:
 pipelines:
   - name: pipeline_dbp_stg
     configuration:
-      nodePool: u18-static
+      nodePool: u18-static2
     steps:
       - name: docker_build_stg
         type: DockerBuild
