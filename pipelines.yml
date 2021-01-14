@@ -144,7 +144,7 @@ pipelines:
           #inherits from bash
           #priority: 10
           inputSteps:
-            - name: publish_helm_chart
+            - name: docker_push
           outputResources:
             - name: dbp_build_helm
 
