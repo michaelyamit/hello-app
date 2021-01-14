@@ -105,7 +105,7 @@ pipelines:
           outputResources:
             - name: dbp_build
             
-      - name: scan
+      - name: scan2
         type: XrayScan
         configuration:
           #inherits from bash
